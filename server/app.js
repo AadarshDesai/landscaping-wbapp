@@ -10,7 +10,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-
+// Create Middlerware
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/projects", projectRoutes);

@@ -3,32 +3,87 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")  // Ensure DATABASE_URL is set correctly
+  provider = "postgresql" // Use "postgresql" for PostgreSQL
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
   name     String
-  email    String   @unique
+  email    String @unique
   password String
-  role     String   // 'admin', 'customer', 'landscaper'
+  role     String // 'admin', 'customer', 'landscaper'
 
   // Relationships
-  projectsAsCustomer  Project[] @relation("CustomerProjects")
-  projectsAsLandscaper Project[] @relation("LandscaperProjects")
+  projectsAsCustomer   Project[]      @relation("CustomerProjects")
+  projectsAsLandscaper Project[]      @relation("LandscaperProjects")
+  notifications        Notification[]
+  auditLogs            AuditLog[]
 }
 
 model Project {
+  id           Int      @id @default(autoincrement())
+  name         String
+  description  String
+  status       String // 'pending', 'in-progress', 'completed'
+  customerId   Int
+  landscaperId Int?
+  createdAt    DateTime @default(now())
+
+  // Relationships
+  customer   User       @relation("CustomerProjects", fields: [customerId], references: [id])
+  landscaper User?      @relation("LandscaperProjects", fields: [landscaperId], references: [id])
+  tasks      Task[]
+  files      File[]
+  invoices   Invoice[]
+  auditLogs  AuditLog[]
+}
+
+model Task {
   id          Int      @id @default(autoincrement())
   name        String
   description String
-  status      String   // 'pending', 'in-progress', 'completed'
-  customerId  Int
-  landscaperId Int?
+  status      String // 'pending', 'in-progress', 'completed'
+  projectId   Int
+  project     Project  @relation(fields: [projectId], references: [id]) // Relation to Project
   createdAt   DateTime @default(now())
+}
 
-  // Relationships
-  customer   User @relation("CustomerProjects", fields: [customerId], references: [id])
-  landscaper User? @relation("LandscaperProjects", fields: [landscaperId], references: [id])
+model Notification {
+  id        Int      @id @default(autoincrement())
+  message   String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model File {
+  id         Int      @id @default(autoincrement())
+  name       String
+  url        String
+  projectId  Int
+  project    Project  @relation(fields: [projectId], references: [id])
+  uploadedAt DateTime @default(now())
+}
+
+model Invoice {
+  id          Int      @id @default(autoincrement())
+  amount      Float
+  dueDate     DateTime
+  isRecurring Boolean  @default(false)
+  projectId   Int
+  project     Project  @relation(fields: [projectId], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  action    String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  projectId Int
+  project   Project  @relation(fields: [projectId], references: [id])
+  details   String
+  createdAt DateTime @default(now())
 }

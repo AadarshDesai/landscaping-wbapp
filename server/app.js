@@ -10,11 +10,13 @@ const notificationRoutes = require('./routes/notificationRoutes');
 const fileRoutes = require('./routes/fileRoutes');
 const invoiceRoutes = require('./routes/invoiceRoutes');
 const auditLogRoutes = require('./routes/auditLogRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 app.use('/api/tasks', taskRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/files', fileRoutes);
 app.use('/api/invoices', invoiceRoutes);
 app.use('/api/audit-logs', auditLogRoutes);
+app.use('/api/auth', authRoutes);
 
 module.exports = app;

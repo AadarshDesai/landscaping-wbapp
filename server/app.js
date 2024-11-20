@@ -17,6 +17,6 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/files', fileRoutes);
 app.use('/api/invoices', invoiceRoutes);
 app.use('/api/audit-logs', auditLogRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
 
 module.exports = app;

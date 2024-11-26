@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import ProjectDetails from './pages/ProjectDetails';
+import Register from './pages/Register';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -10,8 +12,10 @@ function App() {
       <Navbar />
       <div className="container">
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/project/:id" element={<ProjectDetails />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/project/:id" element={<ProjectDetails />} />
         </Routes>
       </div>
     </Router>

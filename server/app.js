@@ -1,8 +1,13 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+
 
 // Middleware
 app.use(express.json());
+
+//CORS
+app.use(cors());
 
 // Routes
 const taskRoutes = require('./routes/taskRoutes');
@@ -17,6 +22,6 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/files', fileRoutes);
 app.use('/api/invoices', invoiceRoutes);
 app.use('/api/audit-logs', auditLogRoutes);
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
 module.exports = app;

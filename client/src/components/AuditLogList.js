@@ -18,15 +18,28 @@ const AuditLogList = ({ projectId }) => {
   }, [projectId]);
 
   return (
-    <div>
-      <h3>Audit Logs</h3>
-      <ul>
-        {logs.map((log) => (
-          <li key={log.id}>
-            {log.action} by User {log.userId} on {new Date(log.createdAt).toLocaleString()}
-          </li>
-        ))}
-      </ul>
+    <div className="bg-gray-50 p-6 rounded-lg shadow-md">
+      <h3 className="text-xl font-semibold text-gray-800 mb-4">Audit Logs</h3>
+      {logs.length > 0 ? (
+        <ul className="space-y-4">
+          {logs.map((log) => (
+            <li
+              key={log.id}
+              className="p-4 border rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow"
+            >
+              <p className="text-gray-700">
+                <span className="font-medium text-gray-900">{log.action}</span> by User{' '}
+                <span className="font-medium text-indigo-600">{log.userId}</span> on{' '}
+                <span className="text-gray-600">
+                  {new Date(log.createdAt).toLocaleString()}
+                </span>
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-gray-600">No audit logs available.</p>
+      )}
     </div>
   );
 };

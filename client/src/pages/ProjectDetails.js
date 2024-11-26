@@ -10,13 +10,39 @@ const ProjectDetails = () => {
   const userId = 1; // Hardcoded for simplicity
 
   return (
-    <div>
-      <h2>Project Details</h2>
-      <TaskList projectId={projectId} />
-      <NotificationList userId={userId} />
-      <FileUpload projectId={projectId} />
-      <InvoiceList projectId={projectId} />
-      <AuditLogList projectId={projectId} />
+    <div className="bg-gray-50 min-h-screen p-6">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-3xl font-bold text-gray-800 mb-8">Project Details</h2>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Task List */}
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <TaskList projectId={projectId} />
+          </div>
+
+          {/* Notifications */}
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <NotificationList userId={userId} />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* File Upload */}
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <FileUpload projectId={projectId} />
+          </div>
+
+          {/* Invoice List */}
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <InvoiceList projectId={projectId} />
+          </div>
+        </div>
+
+        {/* Audit Logs */}
+        <div className="bg-white p-6 rounded-lg shadow-lg">
+          <AuditLogList projectId={projectId} />
+        </div>
+      </div>
     </div>
   );
 };

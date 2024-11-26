@@ -24,10 +24,21 @@ const FileUpload = ({ projectId }) => {
   };
 
   return (
-    <div>
-      <h3>Upload File</h3>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload}>Upload</button>
+    <div className="bg-gray-50 p-6 rounded-lg shadow-md w-full max-w-sm mx-auto">
+      <h3 className="text-xl font-semibold text-gray-800 mb-4">Upload File</h3>
+      <div className="flex flex-col space-y-4">
+        <input
+          type="file"
+          onChange={handleFileChange}
+          className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100"
+        />
+        <button
+          onClick={handleUpload}
+          className="bg-indigo-600 text-white font-medium py-2 px-4 rounded shadow hover:bg-indigo-700 transition-all"
+        >
+          Upload
+        </button>
+      </div>
     </div>
   );
 };

@@ -3,18 +3,21 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container">
-        <Link className="navbar-brand" to="/">
+    <nav className="bg-gray-800 shadow">
+      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+        <Link to="/" className="text-white text-xl font-bold">
           LAMS
         </Link>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/dashboard">Dashboard</Link>
-            </li>
-          </ul>
-        </div>
+        <ul className="flex space-x-4">
+          <li>
+            <Link
+              to="/dashboard"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Dashboard
+            </Link>
+          </li>
+        </ul>
       </div>
     </nav>
   );

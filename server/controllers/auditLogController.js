@@ -1,3 +1,6 @@
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
 exports.createLog = async (action, userId, projectId, details) => {
     try {
       await prismaClient.auditLog.create({

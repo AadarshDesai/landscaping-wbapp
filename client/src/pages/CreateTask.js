@@ -6,7 +6,6 @@ const TaskCreationPage = () => {
     name: '',
     description: '',
     projectId: '',
-    dueDate: '',
     status: 'pending', // Default status
   });
 
@@ -25,7 +24,13 @@ const TaskCreationPage = () => {
     e.preventDefault();
 
     try {
-      const response = await api.post('/api/tasks', taskData); // Adjust URL based on your backend API
+      // Ensure projectId is sent as an integer
+      const payload = {
+        ...taskData,
+        projectId: Number(taskData.projectId),
+      };
+
+      const response = await api.post('/tasks', payload);
       if (response.status === 201) {
         setSuccess(true);
         setError(null);
@@ -33,7 +38,6 @@ const TaskCreationPage = () => {
           name: '',
           description: '',
           projectId: '',
-          dueDate: '',
           status: 'pending',
         });
       }
@@ -83,19 +87,6 @@ const TaskCreationPage = () => {
             id="projectId"
             name="projectId"
             value={taskData.projectId}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700">Due Date</label>
-          <input
-            type="date"
-            id="dueDate"
-            name="dueDate"
-            value={taskData.dueDate}
             onChange={handleChange}
             required
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md"

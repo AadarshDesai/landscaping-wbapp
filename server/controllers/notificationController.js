@@ -1,7 +1,11 @@
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
+
 exports.getNotifications = async (req, res) => {
     try {
       const { userId } = req.params;
-      const notifications = await prismaClient.notification.findMany({
+      const notifications = await prisma.notification.findMany({
         where: { userId: Number(userId) },
       });
       res.status(200).json(notifications);
@@ -13,7 +17,7 @@ exports.getNotifications = async (req, res) => {
   exports.markAsRead = async (req, res) => {
     try {
       const { notificationId } = req.body;
-      const notification = await prismaClient.notification.update({
+      const notification = await prisma.notification.update({
         where: { id: Number(notificationId) },
         data: { read: true },
       });

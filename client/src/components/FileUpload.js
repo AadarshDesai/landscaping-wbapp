@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../api/api';
+import api from '../api/api'; // Ensure the API is set up correctly
 
 const FileUpload = ({ projectId }) => {
   const [file, setFile] = useState(null);
@@ -9,17 +9,26 @@ const FileUpload = ({ projectId }) => {
   };
 
   const handleUpload = async () => {
-    if (!file) return;
+    if (!file) {
+      alert('Please select a file to upload');
+      return;
+    }
     const formData = new FormData();
-    formData.append('name', file.name);
-    formData.append('url', file.name); // Assume a direct link for simplicity
-    formData.append('projectId', projectId);
+    formData.append('file', file); // Append the actual file
+    formData.append('name', file.name); // Optional: file name for reference
+    formData.append('projectId', projectId); // Assuming projectId is passed to the component
 
     try {
-      await api.post('/files', formData);
+      const response = await api.post('/files', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Make sure to set the right content type
+        },
+      });
       alert('File uploaded successfully!');
+      console.log(response.data); // Optional: Log the response if you want to check it
     } catch (error) {
       console.error('Error uploading file:', error);
+      alert('Error uploading file.');
     }
   };
 

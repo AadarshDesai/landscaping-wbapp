@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api/api';
 
-const TaskList = ({ projectId }) => {
+const TaskList = ({ projectId, onUpdateTask }) => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -25,24 +25,32 @@ const TaskList = ({ projectId }) => {
           {tasks.map((task) => (
             <li
               key={task.id}
-              className={`p-4 border rounded-lg shadow-sm ${
+              className={`p-4 border rounded-lg shadow-sm flex justify-between items-center ${
                 task.status === 'Completed'
                   ? 'bg-green-50 border-green-400'
                   : 'bg-yellow-50 border-yellow-400'
               }`}
             >
-              <p className="text-gray-700">
-                <span className="font-medium text-gray-900">{task.name}</span>
-              </p>
-              <p
-                className={`font-medium ${
-                  task.status === 'Completed'
-                    ? 'text-green-600'
-                    : 'text-yellow-600'
-                }`}
+              <div>
+                <p className="text-gray-700">
+                  <span className="font-medium text-gray-900">{task.name}</span>
+                </p>
+                <p
+                  className={`font-medium ${
+                    task.status === 'Completed'
+                      ? 'text-green-600'
+                      : 'text-yellow-600'
+                  }`}
+                >
+                  {task.status}
+                </p>
+              </div>
+              <button
+                onClick={() => onUpdateTask(task.id)} // Call the update function
+                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
               >
-                {task.status}
-              </p>
+                Update
+              </button>
             </li>
           ))}
         </ul>

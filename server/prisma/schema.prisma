@@ -25,19 +25,20 @@ model Project {
   id           Int      @id @default(autoincrement())
   name         String
   description  String
-  status       String // 'pending', 'in-progress', 'completed'
+  status       String  // 'pending', 'in-progress', 'completed'
   customerId   Int
   landscaperId Int?
   createdAt    DateTime @default(now())
 
   // Relationships
-  customer   User       @relation("CustomerProjects", fields: [customerId], references: [id])
-  landscaper User?      @relation("LandscaperProjects", fields: [landscaperId], references: [id])
-  tasks      Task[]
-  files      File[]
-  invoices   Invoice[]
-  auditLogs  AuditLog[]
+  customer     User      @relation("CustomerProjects", fields: [customerId], references: [id])
+  landscaper   User?     @relation("LandscaperProjects", fields: [landscaperId], references: [id])
+  tasks        Task[]
+  files        File[]
+  invoices     Invoice[]
+  auditLogs    AuditLog[]
 }
+
 
 model Task {
   id          Int      @id @default(autoincrement())

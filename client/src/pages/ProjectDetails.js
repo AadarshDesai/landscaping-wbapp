@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import TaskList from '../components/TaskList';
 import NotificationList from '../components/NotificationList';
 import FileUpload from '../components/FileUpload';
@@ -8,6 +9,11 @@ import AuditLogList from '../components/AuditLogList';
 const ProjectDetails = () => {
   const projectId = 1; // Hardcoded for simplicity
   const userId = 1; // Hardcoded for simplicity
+  const navigate = useNavigate();
+
+  const handleUpdateTask = (taskId) => {
+    navigate(`/update-task/${taskId}`); // Navigate to the update task page
+  };
 
   return (
     <div className="bg-gray-50 min-h-screen p-6">
@@ -17,7 +23,7 @@ const ProjectDetails = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Task List */}
           <div className="bg-white p-6 rounded-lg shadow-lg">
-            <TaskList projectId={projectId} />
+            <TaskList projectId={projectId} onUpdateTask={handleUpdateTask} />
           </div>
 
           {/* Notifications */}

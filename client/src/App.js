@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import AddProject from './pages/AddProject';
 import TaskCreationPage from './pages/CreateTask';
+import UpdateTaskPage from './components/UpdateTask';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/project/:id" element={<ProjectDetails />} />
+        <Route path="/update-task/:id" element={<UpdateTaskPage />} />
         </Routes>
       </div>
     </Router>
